@@ -47,18 +47,18 @@ const bouquets = [
 ];
 
 const reviews = [
-  "Lugar top variedades em presentes e um ótimo preço",
-  "Muitas opções de presente, flores, cestas, tudo lindo e perfeito",
-  "Muito bem atendido, loja topppppp",
-  "Excelente ambiente e atendimento nota 10! vou voltar com certeza!",
-  "Atendimento maravilhoso, tudo perfeito, feito com muito carinho",
-  "Bom atendimento e atenção com cliente",
-  "Excelente atendimento super indico",
-  "Parabéns preço justo e muito capricho",
-  "Ótima floricultura, muitas opções de presentes e um bom atendimento.",
-  "Bom preço e atendimento muito bom",
-  "Tem tudo que preciso para datas especiais",
-  "Muito linda a floricultura bastante opções pra presentear",
+  { name: "jean & sabrina", initials: "JS", text: "Lugar top variedades em presentes e um ótimo preço" },
+  { name: "Elizabete Castro", initials: "EC", text: "Muitas opções de presente, flores, cestas, tudo lindo e perfeito" },
+  { name: "Maicon Bassani", initials: "MB", text: "Muito bem atendido, loja topppppp" },
+  { name: "Gustavo Brietzig", initials: "GB", text: "Excelente ambiente e atendimento nota 10! vou voltar com certeza!" },
+  { name: "Lucimery Santos Da Cruz", initials: "LS", text: "Atendimento maravilhoso, tudo perfeito, feito com muito carinho" },
+  { name: "Alan Santana", initials: "AS", text: "Bom atendimento e atenção com cliente" },
+  { name: "Robson Gromovski", initials: "RG", text: "Excelente atendimento super indico" },
+  { name: "Sid e kar", initials: "SK", text: "Parabéns preço justo e muito capricho" },
+  { name: "Alexandre Dos Santos", initials: "AD", text: "Ótima floricultura, muitas opções de presentes e um bom atendimento." },
+  { name: "Nara Mello", initials: "NM", text: "Bom preço e atendimento muito bom" },
+  { name: "Rúbia Lima Ferraz", initials: "RL", text: "Tem tudo que preciso para datas especiais" },
+  { name: "Alceu Augustin", initials: "AA", text: "Muito linda a floricultura bastante opções pra presentear" },
 ];
 
 function WaIcon({ className = "size-5" }: { className?: string }) {
@@ -112,7 +112,7 @@ function ReviewTicker() {
       </div>
       <div className="overflow-hidden">
         <div className="review-track flex w-max gap-4" onTouchStart={() => setManuallyPaused(true)} onClick={() => setManuallyPaused(true)} aria-label="Avaliações de clientes; toque para pausar">
-          {quotes.map((quote, index) => <blockquote key={`${index}-${quote}`} className="flex w-[min(75vw,22rem)] shrink-0 items-center border-l border-white/35 px-5 py-2 text-xl leading-snug font-display sm:w-[22rem] sm:px-7">“{quote}”</blockquote>)}
+          {quotes.map((review, index) => <blockquote key={`${index}-${review.name}`} className="flex w-[min(78vw,25rem)] shrink-0 flex-col justify-between border-l border-white/35 px-5 py-2 sm:w-[25rem] sm:px-7"><p className="text-xl leading-snug font-display">“{review.text}”</p><footer className="mt-6 flex items-center gap-3 font-sans text-sm not-italic"><span className="grid size-9 shrink-0 place-items-center rounded-full border border-white/55 bg-white/10 text-xs font-semibold tracking-wide">{review.initials}</span><span>{review.name}</span></footer></blockquote>)}
         </div>
       </div>
     </div>

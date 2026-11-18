@@ -117,7 +117,7 @@
 .hero-copy { padding-top: clamp(0.65rem, 2vh, 1.5rem); }
 
 .review-track {
-  animation: reviews-left 58s linear infinite;
+  animation: reviews-left 120s linear infinite;
 }
 
 .review-marquee:hover .review-track,
