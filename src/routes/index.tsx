@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowDown, ArrowRight, MapPin, Star } from "lucide-react";
-import fachadaBuque from "@/assets/b6d8a6af-5c42-4eb8-bafa-70e6e88fcc32.jpg";
+import { MapPin } from "lucide-react";
+import heroMobile from "@/assets/2dc442ef-9b55-4e0e-8ad4-3bddb57478f4.jpg";
+import heroDesktop from "@/assets/d3f5b22c-a61e-4424-a354-98a905a1007e.jpg";
 import fachada from "@/assets/939ca73f-265e-46b3-ba84-b5edaa0a6a13.jpg";
 import rosasBicolor from "@/assets/470185bd-519f-498f-a9d1-0fa6f6a84041.jpg";
 import rosaUrso from "@/assets/c28dca0c-5497-4b28-b8e1-9d30568a99cb.jpg";
 import bouquetRosa from "@/assets/89192469-16ea-436c-8e87-3e1d8b90599d.jpg";
 import bouquetLirios from "@/assets/47ee36a5-9a07-42b7-96f8-1d03cfc648b6.jpg";
 import rosasPretas from "@/assets/d2903cc6-3c1b-4082-9ffd-c9bd6a0ee0ad.jpg";
-import rosasVermelhas from "@/assets/d39ef77d-2731-4479-b2e3-a87986810fb5.jpg";
 import rosasLuxo from "@/assets/e592d215-7da8-40dc-ba39-003008f07845.jpg";
 import cestaPresente from "@/assets/1ce9d1c2-9ce9-476f-b1ce-62ff7ccf0345.jpg";
 import girassolChocolate from "@/assets/8cb26021-4a59-479c-b4ee-d6b6580d00e6.jpg";
@@ -38,21 +38,27 @@ export const Route = createFileRoute("/")({
 });
 
 const bouquets = [
-  { img: rosasBicolor, name: "Rosas vermelhas e brancas", type: "Buquês" },
-  { img: bouquetRosa, name: "Um gesto cheio de carinho", type: "Buquês" },
-  { img: bouquetLirios, name: "Lírios e flores coloridas", type: "Buquês" },
-  { img: rosasPretas, name: "Rosas em embrulho especial", type: "Buquês" },
-  { img: girassois, name: "Girassóis para alegrar o dia", type: "Buquês" },
-  { img: rosasLuxo, name: "Buquê de rosas", type: "Buquês" },
-  { img: rosaUrso, name: "Flores com um mimo especial", type: "Presentes" },
-  { img: cestaPresente, name: "Cesta de presentes", type: "Cestas" },
-  { img: girassolChocolate, name: "Flores com chocolate", type: "Presentes" },
+  { img: rosasBicolor, name: "Rosas vermelhas e brancas" },
+  { img: bouquetRosa, name: "Buquê em tons de rosa" },
+  { img: bouquetLirios, name: "Lírios e flores coloridas" },
+  { img: rosasPretas, name: "Rosas em embrulho especial" },
+  { img: girassois, name: "Girassóis para alegrar o dia" },
+  { img: rosasLuxo, name: "Buquê de rosas" },
 ];
 
 const reviews = [
-  { text: "Lugar top, variedades em presentes e um ótimo preço." },
-  { text: "Muitas opções de presente, flores, cestas; tudo lindo, perfeito." },
-  { text: "Parabéns, preço justo e muito capricho." },
+  "Lugar top variedades em presentes e um ótimo preço",
+  "Muitas opções de presente, flores, cestas, tudo lindo e perfeito",
+  "Muito bem atendido, loja topppppp",
+  "Excelente ambiente e atendimento nota 10! vou voltar com certeza!",
+  "Atendimento maravilhoso, tudo perfeito, feito com muito carinho",
+  "Bom atendimento e atenção com cliente",
+  "Excelente atendimento super indico",
+  "Parabéns preço justo e muito capricho",
+  "Ótima floricultura, muitas opções de presentes e um bom atendimento.",
+  "Bom preço e atendimento muito bom",
+  "Tem tudo que preciso para datas especiais",
+  "Muito linda a floricultura bastante opções pra presentear",
 ];
 
 function WaIcon({ className = "size-5" }: { className?: string }) {
@@ -63,9 +69,9 @@ function WaIcon({ className = "size-5" }: { className?: string }) {
   );
 }
 
-function WaButton({ message, children, big = false }: { message: string; children: React.ReactNode; big?: boolean }) {
+function WaButton({ message, children, light = false }: { message: string; children: React.ReactNode; light?: boolean }) {
   return (
-    <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center justify-center gap-2.5 rounded-full bg-accent font-semibold text-accent-foreground transition hover:-translate-y-0.5 hover:brightness-105 active:scale-95 ${big ? "px-7 py-4 text-base" : "px-5 py-3 text-sm"}`}>
+    <a href={wa(message)} target="_blank" rel="noopener noreferrer" className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 ${light ? "bg-white text-foreground hover:bg-white/90 focus-visible:outline-white" : "bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-primary"}`}>
       <WaIcon />{children}
     </a>
   );
@@ -80,80 +86,88 @@ function OrderBuilder() {
   const [mode, setMode] = useState("Entrega");
   const message = `Olá, Floricultura Sônia! Gostaria de consultar opções para presentear.\n• Ocasião: ${occasion}\n• Cores: ${color}\n• Prefiro: ${mode}\nPodem me enviar opções e valores?`;
   const chips = (items: string[], value: string, onSelect: (item: string) => void) => (
-    <div className="flex flex-wrap gap-2">{items.map((item) => <button key={item} type="button" onClick={() => onSelect(item)} aria-pressed={value === item} className={`rounded-full border px-4 py-2 text-sm transition ${value === item ? "border-primary bg-primary text-primary-foreground" : "border-border bg-white hover:border-primary"}`}>{item}</button>)}</div>
+    <div className="flex flex-wrap gap-2">{items.map((item) => <button key={item} type="button" onClick={() => onSelect(item)} aria-pressed={value === item} className={`rounded-full border px-4 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${value === item ? "border-primary bg-primary text-primary-foreground" : "border-border bg-white hover:border-primary"}`}>{item}</button>)}</div>
   );
   return (
     <div className="space-y-6">
-      <fieldset className="space-y-3"><legend className="mb-3 font-display text-xl">Qual é a ocasião?</legend>{chips(occasions, occasion, setOccasion)}</fieldset>
-      <fieldset className="space-y-3"><legend className="mb-3 font-display text-xl">Tem uma cor em mente?</legend>{chips(colors, color, setColor)}</fieldset>
-      <fieldset className="space-y-3"><legend className="mb-3 font-display text-xl">Como quer receber?</legend>{chips(["Entrega", "Retirada na loja"], mode, setMode)}</fieldset>
-      <div className="rounded-2xl border border-dashed border-border bg-white/80 p-4 text-sm whitespace-pre-line text-muted-foreground">{message}</div>
-      <WaButton message={message} big>Continuar pelo WhatsApp</WaButton>
+      <fieldset className="space-y-3"><legend className="mb-3 font-display text-2xl">Qual é a ocasião?</legend>{chips(occasions, occasion, setOccasion)}</fieldset>
+      <fieldset className="space-y-3"><legend className="mb-3 font-display text-2xl">Tem uma cor em mente?</legend>{chips(colors, color, setColor)}</fieldset>
+      <fieldset className="space-y-3"><legend className="mb-3 font-display text-2xl">Como quer receber?</legend>{chips(["Entrega", "Retirada na loja"], mode, setMode)}</fieldset>
+      <div className="border-l-2 border-primary/40 bg-white px-4 py-3 text-sm whitespace-pre-line text-muted-foreground">{message}</div>
+      <WaButton message={message}>Continuar pelo WhatsApp</WaButton>
     </div>
   );
 }
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="mb-4 text-xs font-bold tracking-[0.2em] text-accent uppercase">{children}</p>;
+function ReviewTicker() {
+  const [manuallyPaused, setManuallyPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const paused = manuallyPaused || hovered;
+  const quotes = [...reviews, ...reviews];
+  return (
+    <div className={`review-marquee ${paused ? "is-paused" : ""}`} onPointerEnter={(event) => { if (event.pointerType === "mouse") setHovered(true); }} onPointerLeave={(event) => { if (event.pointerType === "mouse") setHovered(false); }}>
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 pb-6 lg:px-8">
+        <p className="text-sm text-white/70">Relatos de quem já esteve na loja</p>
+        <button type="button" onClick={() => setManuallyPaused((value) => !value)} aria-pressed={manuallyPaused} className="min-h-10 rounded-md border border-white/30 px-4 text-xs font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{manuallyPaused ? "Retomar avaliações" : "Pausar avaliações"}</button>
+      </div>
+      <div className="overflow-hidden">
+        <div className="review-track flex w-max gap-4" onTouchStart={() => setManuallyPaused(true)} onClick={() => setManuallyPaused(true)} aria-label="Avaliações de clientes; toque para pausar">
+          {quotes.map((quote, index) => <blockquote key={`${index}-${quote}`} className="flex w-[min(75vw,22rem)] shrink-0 items-center border-l border-white/35 px-5 py-2 text-xl leading-snug font-display sm:w-[22rem] sm:px-7">“{quote}”</blockquote>)}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Index() {
   return (
-    <div className="min-h-screen overflow-hidden pb-20 md:pb-0">
-      <div className="bg-wine-deep px-4 py-2.5 text-center text-xs font-semibold tracking-wide text-primary-foreground sm:text-sm">Flores, cestas e presentes para celebrar cada momento</div>
-      <header className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
-        <a href="#inicio" className="flex items-center gap-3" aria-label="Floricultura Sônia, início">
-          <span className="flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground"><span aria-hidden className="text-2xl">✿</span></span>
-          <span className="font-display text-xl font-bold leading-none sm:text-2xl">Floricultura <span className="text-primary">Sônia</span></span>
-        </a>
-        <nav className="hidden items-center gap-7 text-sm font-semibold lg:flex">
-          <a href="#flores" className="hover:text-primary">Flores</a><a href="#presentes" className="hover:text-primary">Presentes</a><a href="#homenagens" className="hover:text-primary">Homenagens</a><a href="#loja" className="hover:text-primary">A loja</a>
-        </nav>
-        <a href={wa("Olá, Floricultura Sônia! Gostaria de conhecer as opções de flores e presentes.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground"><WaIcon /><span className="hidden sm:inline">Fale conosco</span><span className="sm:hidden">WhatsApp</span></a>
-      </header>
-
+    <div className="min-h-screen overflow-hidden">
       <main>
-        <section id="inicio" className="mx-auto grid max-w-7xl items-center gap-10 px-5 pt-5 pb-16 lg:grid-cols-2 lg:px-8 lg:pt-10 lg:pb-24">
-          <div className="relative z-10 py-4 lg:py-12">
-            <Eyebrow>JOINVILLE · FLORES E PRESENTES</Eyebrow>
-            <h1 className="max-w-2xl text-5xl leading-[1.02] font-semibold tracking-tight sm:text-6xl lg:text-7xl">Um presente que <span className="text-primary">fala por você.</span></h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">Buquês, cestas personalizadas e presentes para transformar carinho em surpresa. A Floricultura Sônia está na Rua Monsenhor Gercino, em Joinville.</p>
-            <div className="mt-8 flex flex-wrap items-center gap-4"><WaButton message="Olá, Floricultura Sônia! Quero escolher um presente." big>Escolher pelo WhatsApp</WaButton><a href="#flores" className="inline-flex items-center gap-2 font-semibold underline decoration-primary/40 underline-offset-4">Conheça a loja <ArrowDown className="size-4" /></a></div>
-            <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground"><span className="inline-flex items-center gap-2"><span className="text-amber-500">★★★★★</span><strong className="text-foreground">4,5</strong></span><span>128 avaliações no Google</span><span className="hidden text-border sm:inline">•</span><span>Entrega e retirada na loja</span></div>
-          </div>
-          <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
-            <div className="absolute -right-8 -bottom-8 hidden h-3/4 w-3/4 rounded-[2rem] bg-secondary lg:block" />
-            <img src={fachadaBuque} alt="Buquê colorido em frente à fachada vermelha da Floricultura Sônia" className="relative aspect-[4/4.3] w-full rounded-[1.7rem] object-cover object-center shadow-xl sm:aspect-[5/4] lg:aspect-[4/4.2]" />
-            <div className="absolute -bottom-4 left-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg sm:bottom-5 sm:left-[-1.25rem]"><span className="flex size-10 items-center justify-center rounded-full bg-secondary text-xl">✿</span><span><strong className="block text-sm">Floricultura Sônia</strong><span className="text-xs text-muted-foreground">Flores e presentes em Joinville</span></span></div>
-          </div>
-        </section>
-
-        <section id="flores" className="bg-white py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><Eyebrow>FEITOS PARA PRESENTEAR</Eyebrow><h2 className="max-w-2xl text-4xl leading-tight font-semibold sm:text-5xl">Flores que deixam o momento na memória.</h2></div><p className="max-w-sm leading-relaxed text-muted-foreground">Rosas, lírios, girassóis e arranjos cheios de cor. Veja algumas das criações da Sônia.</p></div>
-            <div className="grid gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-              {bouquets.slice(0, 6).map((item, i) => <a key={item.name} href={wa(`Olá! Vi no site “${item.name}” e gostaria de consultar opções e valores.`)} target="_blank" rel="noopener noreferrer" className={`group ${i === 1 ? "lg:mt-10" : ""}`}><div className="overflow-hidden rounded-2xl bg-secondary"><img src={item.img} alt={item.name} loading="lazy" className="aspect-[4/4.5] w-full object-cover transition duration-500 group-hover:scale-[1.035]" /></div><div className="mt-4 flex items-start justify-between gap-3"><div><span className="text-xs font-bold tracking-[0.14em] text-accent uppercase">{item.type}</span><h3 className="mt-1 text-2xl font-semibold">{item.name}</h3></div><ArrowRight className="mt-5 size-5 shrink-0 text-primary transition group-hover:translate-x-1" /></div></a>)}
+        <section id="inicio" className="hero relative h-svh min-h-[640px] text-white">
+          <picture className="absolute inset-0 block h-full w-full">
+            <source media="(max-width: 767px)" srcSet={heroMobile} />
+            <img src={heroDesktop} alt="Buquê colorido erguido contra o céu azul" className="h-full w-full object-cover object-center" fetchPriority="high" />
+          </picture>
+          <header className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between px-5 pt-5 sm:px-8 sm:pt-7 lg:px-12">
+            <a href="#inicio" className="font-display text-xl font-semibold tracking-tight sm:text-2xl" aria-label="Floricultura Sônia, início">Floricultura Sônia</a>
+            <nav className="hidden items-center gap-8 text-sm font-medium md:flex" aria-label="Navegação principal">
+              <a href="#flores" className="hover:underline hover:underline-offset-4">Flores</a><a href="#presentes" className="hover:underline hover:underline-offset-4">Presentes</a><a href="#loja" className="hover:underline hover:underline-offset-4">A loja</a>
+            </nav>
+            <WaButton message="Olá, Floricultura Sônia! Gostaria de conhecer as opções de flores e presentes." light>Fale conosco</WaButton>
+          </header>
+          <div className="hero-copy relative z-10 mx-auto w-full max-w-[1440px] px-5 pt-[clamp(2rem,8vh,5rem)] sm:px-8 md:absolute md:top-[27%] md:left-0 md:right-0 md:px-12 md:pt-0">
+            <div className="max-w-[36rem] md:max-w-[21rem]">
+              <h1 className="max-w-[24rem] text-[2.65rem] leading-[0.98] font-medium tracking-[-0.035em] sm:text-6xl md:text-[3.5rem]">Flores que dizem o que palavras não dizem.</h1>
+              <p className="mt-4 max-w-[21rem] text-sm leading-relaxed sm:mt-5 sm:text-base">Buquês, cestas e presentes para marcar momentos especiais.</p>
+              <div className="mt-5 sm:mt-7"><WaButton message="Olá, Floricultura Sônia! Quero escolher flores ou um presente.">Escolher pelo WhatsApp</WaButton></div>
             </div>
           </div>
         </section>
 
-        <section id="presentes" className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:py-20 lg:grid-cols-2 lg:px-8">
-          <div className="grid grid-cols-2 gap-3 sm:gap-5"><img src={cestaPresente} alt="Cesta de presente com chocolates e flores" loading="lazy" className="aspect-[4/5] w-full rounded-2xl object-cover" /><img src={rosaUrso} alt="Arranjo de rosas vermelhas com ursinho" loading="lazy" className="mt-8 aspect-[4/5] w-full rounded-2xl object-cover" /></div>
-          <div className="lg:pl-8"><Eyebrow>MAIS DO QUE FLORES</Eyebrow><h2 className="text-4xl leading-tight font-semibold sm:text-5xl">Uma surpresa do jeitinho que você imaginou.</h2><p className="mt-5 text-lg leading-relaxed text-muted-foreground">Além dos buquês, a loja reúne cestas personalizadas, buquês de chocolate e presentes. Escolha uma ideia e consulte pelo WhatsApp.</p><div className="mt-7 grid gap-3 sm:grid-cols-2"><div className="rounded-2xl bg-white p-4"><span className="text-2xl">🎁</span><h3 className="mt-2 text-xl font-semibold">Cestas personalizadas</h3></div><div className="rounded-2xl bg-white p-4"><span className="text-2xl">🍫</span><h3 className="mt-2 text-xl font-semibold">Buquês de chocolate</h3></div><div className="rounded-2xl bg-white p-4"><span className="text-2xl">🌹</span><h3 className="mt-2 text-xl font-semibold">Buquês de rosas</h3></div><div className="rounded-2xl bg-white p-4"><span className="text-2xl">🎀</span><h3 className="mt-2 text-xl font-semibold">Presentes</h3></div></div><div className="mt-8"><WaButton message="Olá, Floricultura Sônia! Quero consultar as opções de cestas e presentes." big>Consultar opções</WaButton></div></div>
+        <section id="flores" className="bg-white py-16 sm:py-24">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="mb-10 grid gap-5 md:grid-cols-2 md:items-end sm:mb-14"><h2 className="max-w-2xl text-4xl leading-[1.04] font-medium sm:text-5xl md:text-6xl">Flores para os momentos que ficam.</h2><p className="max-w-md text-base leading-relaxed text-muted-foreground md:justify-self-end">Rosas, lírios e girassóis. Veja alguns dos buquês e arranjos da Floricultura Sônia.</p></div>
+            <div className="grid gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+              {bouquets.map((item) => <a key={item.name} href={wa(`Olá! Vi no site “${item.name}” e gostaria de consultar opções e valores.`)} target="_blank" rel="noopener noreferrer" className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"><img src={item.img} alt={item.name} loading="lazy" className="aspect-[4/4.7] w-full object-cover" /><h3 className="mt-3 text-2xl font-medium sm:text-3xl">{item.name}</h3></a>)}
+            </div>
+          </div>
         </section>
 
-        <section id="pedido" className="bg-secondary py-16 sm:py-20"><div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-12 lg:px-8"><div className="lg:col-span-5"><Eyebrow>É SÓ CHAMAR</Eyebrow><h2 className="text-4xl leading-tight font-semibold sm:text-5xl">Vamos encontrar o presente certo?</h2><p className="mt-5 max-w-md text-lg leading-relaxed text-muted-foreground">Conte a ocasião, a cor e se prefere entrega ou retirada. Sua mensagem fica pronta para continuar a conversa no WhatsApp.</p><img src={fachada} alt="Fachada da Floricultura Sônia na Rua Monsenhor Gercino" loading="lazy" className="mt-8 hidden aspect-[4/3] w-full rounded-2xl object-cover lg:block" /></div><div className="rounded-3xl bg-white p-6 shadow-sm sm:p-9 lg:col-span-7"><OrderBuilder /></div></div></section>
+        <section id="presentes" className="grid bg-secondary md:grid-cols-2">
+          <div className="grid grid-cols-2 gap-1 sm:gap-2"><img src={cestaPresente} alt="Cesta de presente com chocolates" loading="lazy" className="aspect-[4/5] w-full object-cover" /><img src={rosaUrso} alt="Buquê de rosas vermelhas com ursinho" loading="lazy" className="mt-8 aspect-[4/5] w-full object-cover" /></div>
+          <div className="flex items-center px-5 py-14 sm:px-12 lg:px-20"><div className="max-w-xl"><h2 className="text-4xl leading-[1.05] font-medium sm:text-5xl">Presentes para celebrar do seu jeito.</h2><p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">Cestas personalizadas, buquês de chocolate e outras opções para surpreender alguém especial.</p><ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-foreground/15 pt-5 text-base"><li>Cestas personalizadas</li><li>Buquês de chocolate</li><li>Buquês de rosas</li><li>Presentes</li></ul><div className="mt-8"><WaButton message="Olá, Floricultura Sônia! Quero consultar as opções de cestas e presentes.">Consultar opções</WaButton></div></div></div>
+        </section>
 
-        <section id="homenagens" className="bg-wine-deep py-16 text-primary-foreground sm:py-20"><div className="mx-auto max-w-7xl px-5 lg:px-8"><div className="grid gap-9 lg:grid-cols-[0.8fr_1.2fr] lg:items-end"><div><Eyebrow>COM TODO O RESPEITO</Eyebrow><h2 className="text-4xl leading-tight font-semibold sm:text-5xl">Homenagens em forma de flores.</h2></div><p className="max-w-xl text-lg leading-relaxed text-primary-foreground/75">A Floricultura Sônia também prepara coroas de flores para momentos de despedida. Para consultar opções e atendimento, fale diretamente com a equipe.</p></div><div className="mt-10 grid gap-4 sm:grid-cols-3"><img src={coroaFlores} alt="Coroa de flores em homenagem" loading="lazy" className="aspect-[4/4.5] w-full rounded-2xl object-cover"/><img src={coroaMargaridas} alt="Coroa com rosas vermelhas e margaridas" loading="lazy" className="aspect-[4/4.5] w-full rounded-2xl object-cover"/><img src={coroaAmarela} alt="Coroa de flores amarelas e brancas" loading="lazy" className="aspect-[4/4.5] w-full rounded-2xl object-cover"/></div><div className="mt-8"><WaButton message="Olá, Floricultura Sônia. Gostaria de consultar sobre coroas de flores.">Consultar pelo WhatsApp</WaButton></div></div></section>
+        <section id="pedido" className="bg-white py-16 sm:py-24"><div className="mx-auto grid max-w-7xl gap-9 px-5 lg:grid-cols-12 lg:px-8"><div className="lg:col-span-5"><h2 className="text-4xl leading-[1.05] font-medium sm:text-5xl">Escolha com calma. A gente conversa pelo WhatsApp.</h2><p className="mt-5 max-w-md leading-relaxed text-muted-foreground">Selecione a ocasião, a cor e a forma de receber. A mensagem chega pronta para você enviar.</p></div><div className="border-t border-border pt-6 sm:pt-8 lg:col-span-7 lg:col-start-6"><OrderBuilder /></div></div></section>
 
-        <section id="avaliacoes" className="bg-white py-16 sm:py-20"><div className="mx-auto max-w-7xl px-5 lg:px-8"><div className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between"><div><Eyebrow>QUEM JÁ CONHECE</Eyebrow><h2 className="text-4xl leading-tight font-semibold sm:text-5xl">Carinho reconhecido por Joinville.</h2></div><div className="flex items-center gap-3"><span className="text-5xl font-semibold">4,5</span><span><span className="block text-amber-500">★★★★★</span><span className="text-sm text-muted-foreground">128 avaliações no Google</span></span></div></div><div className="mt-8 grid gap-4 md:grid-cols-3">{reviews.map((review) => <blockquote key={review.text} className="rounded-2xl bg-background p-6"><div className="mb-3 flex gap-1 text-amber-500" aria-label="Avaliação de cinco estrelas">{[1,2,3,4,5].map((n) => <Star key={n} className="size-4 fill-current" />)}</div><p className="font-display text-xl leading-relaxed">“{review.text}”</p><p className="mt-4 text-xs font-semibold tracking-wide text-muted-foreground uppercase">Avaliação no Google</p></blockquote>)}</div></div></section>
+        <section id="homenagens" className="bg-[#274c69] py-16 text-white sm:py-24"><div className="mx-auto max-w-7xl px-5 lg:px-8"><div className="grid gap-5 md:grid-cols-2 md:items-end"><h2 className="max-w-2xl text-4xl leading-[1.05] font-medium sm:text-5xl">Coroas de flores para prestar sua homenagem.</h2><p className="max-w-md leading-relaxed text-white/80 md:justify-self-end">Para consultar opções e atendimento, fale diretamente com a Floricultura Sônia.</p></div><div className="mt-9 grid gap-1 sm:grid-cols-3 sm:gap-3"><img src={coroaFlores} alt="Coroa de flores com rosas vermelhas" loading="lazy" className="aspect-[4/4.5] w-full object-cover"/><img src={coroaMargaridas} alt="Coroa com rosas vermelhas e margaridas" loading="lazy" className="aspect-[4/4.5] w-full object-cover"/><img src={coroaAmarela} alt="Coroa de flores amarelas e brancas" loading="lazy" className="aspect-[4/4.5] w-full object-cover"/></div><div className="mt-7"><WaButton message="Olá, Floricultura Sônia. Gostaria de consultar sobre coroas de flores." light>Consultar coroas</WaButton></div></div></section>
 
-        <section id="loja" className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:py-20 lg:grid-cols-2 lg:px-8"><div className="overflow-hidden rounded-3xl"><img src={lojaInterior} alt="Interior da Floricultura Sônia com cestas e presentes" loading="lazy" className="aspect-[5/4] w-full object-cover" /></div><div><Eyebrow>VENHA VISITAR</Eyebrow><h2 className="text-4xl leading-tight font-semibold sm:text-5xl">Um mundo de flores e presentes na loja.</h2><p className="mt-5 text-lg leading-relaxed text-muted-foreground">Encontre a Floricultura Sônia no bairro João Costa. Há entrega, retirada na loja e compras presenciais.</p><address className="mt-7 space-y-2 not-italic"><p className="flex items-start gap-3"><MapPin className="mt-0.5 size-5 shrink-0 text-primary"/><span>R. Monsenhor Gercino, 4600<br/>João Costa, Joinville – SC, 89230-335</span></p><p className="pl-8 font-medium">(47) 99742-0312</p><p className="pl-8 text-sm text-muted-foreground">Segunda-feira a sábado</p></address><div className="mt-7 flex flex-wrap gap-3"><WaButton message="Olá, Floricultura Sônia! Gostaria de tirar uma dúvida.">Fale pelo WhatsApp</WaButton><a href={MAPS} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-semibold hover:border-primary"><MapPin className="size-4"/>Como chegar</a></div><div className="mt-4 flex gap-4 text-sm"><a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Instagram</a><a href={MAPS} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Ver no Google Maps</a></div></div></section>
+        <section id="avaliacoes" className="bg-[#18374d] py-14 text-white sm:py-20"><div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 pb-8 sm:flex-row sm:items-end sm:justify-between lg:px-8"><h2 className="max-w-2xl text-4xl leading-tight font-medium sm:text-5xl">O que dizem de nós.</h2><p className="text-sm text-white/75"><strong className="mr-2 text-2xl font-medium text-white">4,5</strong>128 avaliações no Google</p></div><ReviewTicker /></section>
+
+        <section id="loja" className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-16 sm:py-24 lg:grid-cols-2 lg:px-8"><img src={lojaInterior} alt="Interior da Floricultura Sônia com cestas e presentes" loading="lazy" className="aspect-[5/4] w-full object-cover"/><div className="lg:pl-10"><h2 className="max-w-xl text-4xl leading-[1.05] font-medium sm:text-5xl">Flores e presentes na Rua Monsenhor Gercino.</h2><p className="mt-5 max-w-lg leading-relaxed text-muted-foreground">Visite a Floricultura Sônia no bairro João Costa. Você também pode pedir entrega ou retirar na loja.</p><address className="mt-7 space-y-2 not-italic"><p className="flex items-start gap-3"><MapPin className="mt-0.5 size-5 shrink-0 text-primary"/><span>R. Monsenhor Gercino, 4600<br/>João Costa, Joinville – SC, 89230-335</span></p><p className="pl-8 font-medium">(47) 99742-0312</p><p className="pl-8 text-sm text-muted-foreground">Segunda-feira a sábado</p></address><div className="mt-7 flex flex-wrap gap-3"><WaButton message="Olá, Floricultura Sônia! Gostaria de tirar uma dúvida.">WhatsApp</WaButton><a href={MAPS} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center rounded-md border border-foreground/25 px-5 py-3 text-sm font-semibold hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Como chegar</a></div><a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="mt-5 inline-block text-sm underline underline-offset-4">@floricultura_sonia</a></div></section>
       </main>
 
-      <footer className="bg-[#171417] py-8 text-sm text-white/70"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left lg:px-8"><p><strong className="text-white">Floricultura Sônia</strong> · Flores e presentes em Joinville, SC</p><a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">@floricultura_sonia</a></div></footer>
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-white/95 p-3 backdrop-blur md:hidden"><a href={wa("Olá, Floricultura Sônia! Quero consultar as opções de flores e presentes.")} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-semibold text-accent-foreground"><WaIcon/>Fale com a Floricultura Sônia</a></div>
-      <a href={wa("Olá, Floricultura Sônia! Quero consultar as opções de flores e presentes.")} target="_blank" rel="noopener noreferrer" aria-label="Fale com a Floricultura Sônia pelo WhatsApp" className="fixed right-6 bottom-6 z-50 hidden size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg md:flex"><WaIcon className="size-7"/></a>
+      <footer className="bg-[#18374d] py-7 text-sm text-white/75"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 text-center sm:flex-row sm:text-left lg:px-8"><p><strong className="text-white">Floricultura Sônia</strong> · Joinville, SC</p><a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Instagram</a></div></footer>
     </div>
   );
 }
